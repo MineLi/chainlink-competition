@@ -24,6 +24,22 @@ const defaultRoutes = [
     component: () => import("@/views/wap/list.vue")
   },
   {
+    path: '/wap/detail',
+    name: 'wapDetail',
+    meta: {
+      title: "NFT Detail"
+    },
+    component: () => import("@/views/wap/detail.vue")
+  },
+  {
+    path: '/web/create',
+    name: 'webCreate',
+    meta: {
+      title: "Create"
+    },
+    component: () => import("@/views/web/create.vue")
+  },
+  {
     path: '/web/list',
     name: 'webList',
     meta: {
@@ -32,12 +48,20 @@ const defaultRoutes = [
     component: () => import("@/views/web/list.vue")
   },
   {
-    path: '/wap/detail',
-    name: 'wapDetail',
+    path: '/web/detail',
+    name: 'webDetail',
     meta: {
-      title: "NFT Detail"
+      title: "NFT"
     },
-    component: () => import("@/views/wap/detail.vue")
+    component: () => import("@/views/web/detail.vue")
+  },
+  {
+    path: '/web/delivery',
+    name: 'webDelivery',
+    meta: {
+      title: "Delivery"
+    },
+    component: () => import("@/views/web/delivery.vue")
   },
   {
     path: '/login',
