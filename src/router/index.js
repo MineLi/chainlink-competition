@@ -5,7 +5,7 @@ import routes from "./routes"
 const defaultRoutes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/wap/list'
   },
   {
     path: '/home',
@@ -21,7 +21,15 @@ const defaultRoutes = [
     meta: {
       title: "NFT List"
     },
-    component: () => import("@/views/nft/wap_list.vue")
+    component: () => import("@/views/wap/list.vue")
+  },
+  {
+    path: '/web/list',
+    name: 'webList',
+    meta: {
+      title: "NFT List"
+    },
+    component: () => import("@/views/web/list.vue")
   },
   {
     path: '/wap/detail',
@@ -29,7 +37,7 @@ const defaultRoutes = [
     meta: {
       title: "NFT Detail"
     },
-    component: () => import("@/views/nft/wap_detail.vue")
+    component: () => import("@/views/wap/detail.vue")
   },
   {
     path: '/login',
