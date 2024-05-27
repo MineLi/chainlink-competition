@@ -115,61 +115,7 @@ $login: '.login';
   border-radius:6px;
   transform: translateX(-50%) translateY(-50%);
 
-  #{$login}{
-    &-welcome{
-      position: relative;
-      width: 322px;
-      height: 546px;
-      padding-left: 52px;
-      color: #FFF;
-      font-size: 28px;
-      background: url('~@/assets/images/login/blue-bg.png');
-      background-position: center;
-      background-size: cover;
-      &-title{
-        margin-top: 58px;
-      }
-      &-content{
-        margin-top: 99px;
-        font-size:28px;
-        line-height:66px;
-      }
-      &-footer{
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 56px;
-        font-size: 14px;
-        &-item {
-          position: relative;
-          padding: 0 24px;
-        }
-        .login-welcome-footer-item + .login-welcome-footer-item{
-          &::before{
-            position: absolute ;
-            top: 50%;
-            left: 0;
-            display: block;
-            width: 1px;
-            height: 11px;
-            background: #FFF;
-            transform: translateY(-50%);
-            content: ' ';
-          }
-        }
-      }
-    }
-    &-form{
-      min-width: 333px;
-      max-width: 448px;
-      height: 546px;
-      padding: 60px 40px;
-    }
-  }
+
   &.mobile {
     right: 0;
     #{$login}-form {

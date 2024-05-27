@@ -5,7 +5,7 @@ import routes from "./routes"
 const defaultRoutes = [
   {
     path: '/',
-    redirect: '/wap/list'
+    redirect: '/buyer/list'
   },
   {
     path: '/home',
@@ -16,60 +16,68 @@ const defaultRoutes = [
     component: () => import("@/views/home.vue")
   },
   {
-    path: '/wap/list',
-    name: 'wapList',
+    path: '/buyer/list',
+    name: 'buyerList',
     meta: {
       title: "NFT List"
     },
-    component: () => import("@/views/wap/list.vue")
+    component: () => import("@/views/buyer/list.vue")
   },
   {
-    path: '/wap/detail',
-    name: 'wapDetail',
+    path: '/buyer/detail',
+    name: 'buyerDetail',
     meta: {
       title: "NFT Detail"
     },
-    component: () => import("@/views/wap/detail.vue")
+    component: () => import("@/views/buyer/detail.vue")
   },
   {
-    path: '/web/create',
-    name: 'webCreate',
+    path: '/seller/create',
+    name: 'sellerCreate',
     meta: {
       title: "Create"
     },
-    component: () => import("@/views/web/create.vue")
+    component: () => import("@/views/seller/create.vue")
   },
   {
-    path: '/web/list',
-    name: 'webList',
+    path: '/seller/list',
+    name: 'sellerList',
     meta: {
       title: "NFT List"
     },
-    component: () => import("@/views/web/list.vue")
+    component: () => import("@/views/seller/list.vue")
   },
   {
-    path: '/web/detail',
-    name: 'webDetail',
+    path: '/seller/detail',
+    name: 'sellerDetail',
     meta: {
       title: "NFT"
     },
-    component: () => import("@/views/web/detail.vue")
+    component: () => import("@/views/seller/detail.vue")
   },
   {
-    path: '/web/delivery',
-    name: 'webDelivery',
+    path: '/seller/delivery',
+    name: 'sellerDelivery',
     meta: {
       title: "Delivery"
     },
-    component: () => import("@/views/web/delivery.vue")
+    component: () => import("@/views/seller/delivery.vue")
   },
   {
-    path: '/login',
-    name: 'login',
+    path: '/seller/login',
+    name: 'sellerLogin',
     meta: {
       title: "Login"
     },
-    component: () => import("@/views/login/index.vue")
+    component: () => import("@/views/seller/login.vue")
+  },
+  {
+    path: '/buyer/login',
+    name: 'buyerLogin',
+    meta: {
+      title: "Login"
+    },
+    component: () => import("@/views/buyer/login.vue")
   }
 ]
 const router = createRouter({
