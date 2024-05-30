@@ -71,7 +71,7 @@ class Base {
    * @private
    */
   _getBaseURL() {
-    return ''
+    return 'http://116.196.89.134:8080/prod-api'
   }
   /**
    * _handleResult

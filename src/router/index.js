@@ -24,6 +24,22 @@ const defaultRoutes = [
     component: () => import("@/views/buyer/list.vue")
   },
   {
+    path: '/buyer/nft/list',
+    name: 'buyerNftList',
+    meta: {
+      title: "NFT List"
+    },
+    component: () => import("@/views/buyer/nftList.vue")
+  },
+  {
+    path: '/buyer/nft/detail',
+    name: 'buyerNftDetail',
+    meta: {
+      title: "NFT Detail"
+    },
+    component: () => import("@/views/buyer/nftDetail.vue")
+  },
+  {
     path: '/buyer/detail',
     name: 'buyerDetail',
     meta: {
@@ -56,12 +72,12 @@ const defaultRoutes = [
     component: () => import("@/views/seller/detail.vue")
   },
   {
-    path: '/seller/delivery',
-    name: 'sellerDelivery',
+    path: '/buyer/delivery',
+    name: 'buyerDelivery',
     meta: {
       title: "Delivery"
     },
-    component: () => import("@/views/seller/delivery.vue")
+    component: () => import("@/views/buyer/delivery.vue")
   },
   {
     path: '/seller/login',

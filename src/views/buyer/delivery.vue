@@ -3,10 +3,10 @@
     <div class="bg-white rounded-xl shadow border flex flex-col items-center p-[40px] h-[calc(100vh-100px)]">
       <div class="font-bold text-[32px]">Delivery Form</div>
       <div class="flex border rounded-md mt-[20px] p-[50px]">
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center w-[500px]">
           <img class="w-[400px] h-[300px]" src="" alt="">
           <span class="text-[24px] mt-[20px]">NFT Name: Red Wine #123</span>
-          <span class="text-[16px] mt-[20px]">Transaction Tx: ladjalsjd34e120209123901239012390</span>
+          <span class="text-[16px] mt-[20px]">{{ route.query.txId }}</span>
         </div>
         <div class="flex flex-col ml-[20px] w-[400px]">
           <el-form :model="form" label-width="auto">
@@ -31,6 +31,8 @@
 
 <script setup>
 import { reactive } from "vue";
+import { useRoute } from "vue-router";
+const route = useRoute()
 
 const form = reactive({
   receiver: '',
