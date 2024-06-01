@@ -5,7 +5,7 @@
     <div class="w-full h-[200px] bg-[#eee]">
       <img class="w-full h-auto" src="" alt="">
     </div>
-    <el-button type="primary" class="mt-6 w-[fit-content] m-auto !px-[40px]">Done!</el-button>
+    <el-button type="primary" class="mt-6 w-[fit-content] m-auto !px-[40px] bg-[#409eff]">Done!</el-button>
   </div>
 </template>
 

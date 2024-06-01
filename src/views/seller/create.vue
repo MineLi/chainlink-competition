@@ -15,7 +15,7 @@
               <el-input v-model="form.baseUrl"/>
             </el-form-item>
             <el-form-item label=" ">
-              <el-button @click="confirmUpload" type="primary">Confirm</el-button>
+              <el-button class="bg-[#409eff]" @click="confirmUpload" type="primary">Confirm</el-button>
             </el-form-item>
           </div>
         </div>

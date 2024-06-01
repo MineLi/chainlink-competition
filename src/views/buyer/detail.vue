@@ -7,8 +7,8 @@
     <div class="text-[18px] mt-2" v-if="currentCost">Current Price: {{ currentCost }}ETH</div>
     <el-button v-if="isOpen" disabled class="mt-6 w-[fit-content] m-auto !px-[40px]">Has Opened !</el-button>
     <template v-else>
-      <el-button v-if="hasFinished" @click="actionDone" type="primary" class="mt-6 w-[fit-content] m-auto !px-[40px]">Done</el-button>
-      <el-button v-else @click="actionOpen" type="primary" class="mt-6 w-[fit-content] m-auto !px-[40px]">Open it</el-button>
+      <el-button v-if="hasFinished" @click="actionDone" type="primary" class="bg-[#409eff] mt-6 w-[fit-content] m-auto !px-[40px]">Done</el-button>
+      <el-button v-else @click="actionOpen" type="primary" class="bg-[#409eff] mt-6 w-[fit-content] m-auto !px-[40px]">Open it</el-button>
     </template>
   </div>
 </template>
@@ -25,14 +25,19 @@ import apis from "@/x/server"
 
 const isOpen = computed(() => {
   // 字符串倒数第7位 x: 未开 y: 已开
-  const regex=/.{14}(.){6}/;
-  const str = route.query.id;
-  const match = str.match(regex);
-  if(match){
-    const middleChar = match[1];
-    return middleChar === 'y'
-  } else { console.log("No match found"); }
-  return true
+  // const regex=/.{14}(.){6}/;
+  // const str = location.href;
+  // console.error("str", str)
+  // const match = str.match(regex);
+  // if(match){
+  //   const middleChar = match[1];
+  //   console.error(middleChar)
+  //   return middleChar === 'y'
+  // } else { console.log("No match found"); }
+  // return true
+  const str = location.href
+  console.error(str.substr(-7, 1))
+  return str.substr(-7, 1) === 'y'
 })
 
 onBeforeMount(() => {

@@ -19,7 +19,7 @@
               <el-input v-model="form.recipientAddress" type="textarea" rows="6"/>
             </el-form-item>
             <el-form-item>
-              <el-button class="ml-[80px]" type="primary" @click="onSubmit">Submit</el-button>
+              <el-button class="ml-[80px] bg-[#409eff]" type="primary" @click="onSubmit">Submit</el-button>
             </el-form-item>
           </el-form>
         </div>
