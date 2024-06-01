@@ -18,23 +18,25 @@
 </template>
 
 <script setup>
+import { ElMessage } from 'element-plus'
 import { useStore } from "vuex"
 import web3Util from "@/x/utils/web3"
 import { useRouter } from "vue-router"
 const store = useStore()
 const router = useRouter()
-
+let chainId = ''
 async function actionConnect(){
-  const networkVersion = await getNetworkVersion()
-  console.error("networkVersion", networkVersion)
-  if(String(networkVersion) !== "1") {
-    console.error("This application requires the main network, please switch it in your MetaMask UI.")
-    return 
+  if(chainId !== '0xaa36a7') {
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0xaa36a7" }]
+      })
+    } catch (error) {
+    }
   }
   if(!web3Util.web3) {
-    // return this.$message.error("Please connect Metamask first");
-    console.error("Please connect Metamask first")
-    return 
+    return ElMessage.error("Please connect Metamask first");
   }
   const web3 = web3Util.web3
   web3.eth.getAccounts().then(async (accounts) => { 
@@ -44,23 +46,12 @@ async function actionConnect(){
       return false;
     }
     const walletAddress = accounts[0]
-    // this.checkWhiteListByAddress(walletAddress)
     console.error(walletAddress)
     store.commit("setSellerToken", walletAddress)
     router.push({ name: 'sellerCreate' })
   })
 }
-function getNetworkVersion() {
-  return new Promise(resolve => {
-    try {
-      window.ethereum.request({ method: 'net_version' }).then(result => {
-        resolve(result)
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  })
-}
+
 function metaMaskLogin() {
   actionConnect()
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-w-[800px] p-[40px]">
+  <div class="min-w-[800px] p-[20px]">
     <div class="bg-white rounded-xl shadow border flex flex-col items-center p-[40px] h-[calc(100vh-100px)] pt-[100px]">
       <div class="font-bold text-[32px]">Upload New Art Work</div>
       <el-form :model="form" label-width="auto">

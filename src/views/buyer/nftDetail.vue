@@ -1,6 +1,6 @@
 <template>
-  <div class="min-w-[800px] p-[40px]">
-    <div class="bg-white rounded-xl shadow border flex flex-col items-center p-[40px] h-[calc(100vh-100px)]">
+  <div class="p-[20px]">
+    <div class="bg-white rounded-xl shadow border flex flex-col items-center p-[40px] min-h-[calc(100vh-100px)]">
       <div class="font-bold text-[32px]">NFT NAME</div>
       <div class="border rounded-md flex flex-col items-center mt-[20px] p-[20px]">
         <img class="w-[500px] h-[300px]" :src="nftDetail.image" alt="">
@@ -18,9 +18,9 @@
 
 <script setup>
 import web3Util from "@/x/utils/web3"
-// , BigNumber
+import { ElMessage } from 'element-plus'
 // import { ethers } from "ethers"
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import MintCls from "@/x/utils/mint"
 // import BigNumberjs from "bignumber.js";
 const MintClsInstance = MintCls.instance
@@ -31,29 +31,31 @@ const router = useRouter()
 const hasFinished = ref(false);
 
 const txId = ref("")
+const tokenId = ref("")
 
-onMounted(async () => {
-  getTokenUri()
+const nftDetail = ref({
+  description: "Experience the mystical charm of our Drunken Ghosts, where each sip is a step into a fantastical world.",
+  image: "https://nftstorage.link/ipfs/bafybeih2yys2zr7gpipkqnzvbwlufjr6pbdju4lkgpj67e367fgilyk5ou",
+  name: "OffChainDrunkenAccess"
 })
-
-const nftDetail = ref({})
-async function getTokenUri() {
-  // const uri = await MintClsInstance.methods.tokenURI(1).call()
-  // console.log(uri)
-  const linkUrl = `https://bafybeici3ejk53rujwq5geaywf4eqmqnmpmgfczsupi456aad7idjcs55y.ipfs.nftstorage.link/0.json`
-  const res = await fetch(linkUrl)
-  const data = await res.json()
-  nftDetail.value = data
-}
+// async function getTokenUri() {
+//   // const uri = await MintClsInstance.methods.tokenURI(9).call()
+//   // console.log(uri)
+//   const linkUrl = `https://nftstorage.link/ipfs/bafybeici3ejk53rujwq5geaywf4eqmqnmpmgfczsupi456aad7idjcs55y/9.json`
+//   const res = await fetch(linkUrl)
+//   const data = await res.json()
+//   nftDetail.value = data
+// }
 
 
 async function actionMint() {
   const chainId = await window.ethereum.request({ method: 'eth_chainId' })
-  if(chainId !== '0x66eee') {
+  console.error(chainId)
+  if(chainId !== '0xaa36a7') {
     try {
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x66eee" }]
+        params: [{ chainId: "0xaa36a7" }]
       })
     } catch (error) {
     }
@@ -62,27 +64,28 @@ async function actionMint() {
   try {
     const accounts = await web3Util.web3.eth.getAccounts();
     const account = accounts[0];
+    console.error("mint account", account)
     const mintCost = await MintClsInstance.methods.cost().call()
     MintClsInstance.methods.mint(1).send({
       from: account,
       value: mintCost
     }).on("transactionHash", (hash) => {
-      hasFinished.value = true
       txId.value = hash
       loadingInstance1 = ElLoading.service({ fullscreen: true })
-    }).on("receipt", async () => {
-      // // 调用update接口
+    }).on("receipt", async (res) => {
+      console.error(res)
+      const encodeTokenId = res.logs[0].topics.pop()
+      tokenId.value = window.web3.eth.abi.decodeParameter('uint256', encodeTokenId);
+      hasFinished.value = true
       loadingInstance1.close()
     }).on("error", (error) => {
       const rejected = "User denied transaction signature.";
       if (error.message && error.message.includes(rejected)) {
-        // this.$toast(
-        //   `We can't take your money without your permission.`
-        // );
+        ElMessage.error('We can\'t take your money without your permission.')
         return false;
       }
       if (error) {
-        // this.$toast("There was an issue, please try again.");
+        ElMessage.error('There was an issue, please try again.')
         return false;
       }
     });
@@ -92,7 +95,7 @@ async function actionMint() {
 }
 
 function actionToDelivery() {
-  router.push({ name : 'buyerDelivery', query: { txId: txId.value } })
+  router.push({ name : 'buyerDelivery', query: { tokenId: tokenId.value } })
 }
 
 </script>

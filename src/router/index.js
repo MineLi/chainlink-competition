@@ -5,7 +5,7 @@ import routes from "./routes"
 const defaultRoutes = [
   {
     path: '/',
-    redirect: '/buyer/list'
+    redirect: '/buyer/nft/list'
   },
   {
     path: '/home',
@@ -16,12 +16,12 @@ const defaultRoutes = [
     component: () => import("@/views/home.vue")
   },
   {
-    path: '/buyer/list',
-    name: 'buyerList',
+    path: '/buyer/nft/opened',
+    name: 'buyerNftOpened',
     meta: {
       title: "NFT List"
     },
-    component: () => import("@/views/buyer/list.vue")
+    component: () => import("@/views/buyer/opened.vue")
   },
   {
     path: '/buyer/nft/list',
@@ -54,22 +54,6 @@ const defaultRoutes = [
       title: "Create"
     },
     component: () => import("@/views/seller/create.vue")
-  },
-  {
-    path: '/seller/list',
-    name: 'sellerList',
-    meta: {
-      title: "NFT List"
-    },
-    component: () => import("@/views/seller/list.vue")
-  },
-  {
-    path: '/seller/detail',
-    name: 'sellerDetail',
-    meta: {
-      title: "NFT"
-    },
-    component: () => import("@/views/seller/detail.vue")
   },
   {
     path: '/buyer/delivery',

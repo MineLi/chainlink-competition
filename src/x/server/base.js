@@ -1,9 +1,9 @@
 import axios from 'axios'
-import store from '@/x/store'
+// import store from '@/x/store'
 import qs from 'qs'
-import { ElMessage } from 'element-plus'
+// import { ElMessage } from 'element-plus'
 
-const timeout = 10 * 60 * 1000 // 超时时间
+const timeout = 60 * 60 * 1000 // 超时时间
 class Base {
   /**
    * 构造器
@@ -45,9 +45,9 @@ class Base {
       if(res.data && res.data.code === 401) {
         return res
       }
-      if(res.data && res.data.code !== 200) {
-        ElMessage.error(res.data.msg)
-      }
+      // if(res.data && res.data.code !== 200) {
+      //   ElMessage.error(res.data.msg)
+      // }
       return res
     }, err => {
       if(err.response?.status === 401) {
@@ -71,7 +71,7 @@ class Base {
    * @private
    */
   _getBaseURL() {
-    return 'http://116.196.89.134:8080/prod-api'
+    return ''
   }
   /**
    * _handleResult
