@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col p-[20px] pt-[20px]">
-    <div class="w-full bg-[#eee]">
+  <div class="flex flex-col items-center p-[20px] pt-[20px]">
+    <div class="w-full max-w-[400px] bg-[#eee]">
       <img class="w-full h-auto" :src="nftImage" alt="">
     </div>
     <div class="font-bold text-[18px] mt-2">Name: {{ nftName }}</div>
-    <div class="text-[18px] mt-2">Current Price: {{ currentCost }}ETH</div>
+    <div class="text-[18px] mt-2" v-if="currentCost">Current Price: {{ currentCost }}ETH</div>
     <el-button v-if="isOpen" disabled class="mt-6 w-[fit-content] m-auto !px-[40px]">Has Opened !</el-button>
     <template v-else>
       <el-button v-if="hasFinished" @click="actionDone" type="primary" class="mt-6 w-[fit-content] m-auto !px-[40px]">Done</el-button>
@@ -44,6 +44,10 @@ const MintClsInstance = MintCls.instance
 const txId = ref("")
 const hasFinished = ref(false)
 async function actionOpen() {
+  if(!web3Util.web3) {
+    location.href = `https://metamask.app.link/dapp/${location.href.replace(/http:\/\/|https:\/\//, '')}`
+    return
+  }
   const chainId = await window.ethereum.request({ method: 'eth_chainId' })
   console.error(chainId)
   if(chainId !== '0xaa36a7') {
@@ -103,6 +107,10 @@ async function getNFTMetadata() {
 
 const currentCost = ref(0)
 async function getCurrentCost() {
+  if(!web3Util.web3) {
+    // ElMessage.error("Please connect Metamask first");
+    return 
+  }
   const mintCost = await MintClsInstance.methods.cost().call()
   const perTokenCost =  web3Util.web3.utils.fromWei(mintCost, 'ether')
   currentCost.value = perTokenCost

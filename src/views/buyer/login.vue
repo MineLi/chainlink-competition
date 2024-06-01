@@ -18,14 +18,24 @@
 </template>
 
 <script setup>
+import { isMobileBrowser } from "@/x/tools"
 import { useStore } from "vuex"
 import web3Util from "@/x/utils/web3"
-import { ElMessage } from 'element-plus'
+// import { ElMessage } from 'element-plus'
 const store = useStore()
-import { useRouter } from "vue-router"
+import { useRouter, useRoute } from "vue-router"
 const router = useRouter();
+const route = useRoute()
 let chainId = '';
 async function actionConnect(){
+  if(!web3Util.web3) {
+    if(isMobileBrowser()) {
+      location.href = `https://metamask.app.link/dapp/${location.href.replace(/http:\/\/|https:\/\//, '')}`
+    } else {
+      location.href = `https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn`
+    }
+    return false
+  }
   console.error(chainId)
   if(chainId !== '0xaa36a7') {
     try {
@@ -35,9 +45,6 @@ async function actionConnect(){
       })
     } catch (error) {
     }
-  }
-  if(!web3Util.web3) {
-    return ElMessage.error("Please connect Metamask first");
   }
   const web3 = web3Util.web3
   web3.eth.getAccounts().then(async (accounts) => { 
@@ -50,6 +57,10 @@ async function actionConnect(){
     // this.checkWhiteListByAddress(walletAddress)
     console.error(walletAddress)
     store.commit("setBuyerToken", walletAddress)
+    // router.push({ name: 'buyerNftList' })
+    if(route.query.backUrl) {
+      return location.replace(route.query.backUrl)
+    }
     router.push({ name: 'buyerNftList' })
   })
 }

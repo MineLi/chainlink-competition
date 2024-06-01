@@ -17,6 +17,7 @@
 </template>
 
 <script setup>
+import { isMobileBrowser } from "@/x/tools"
 import web3Util from "@/x/utils/web3"
 import { ElMessage } from 'element-plus'
 // import { ethers } from "ethers"
@@ -49,6 +50,14 @@ const nftDetail = ref({
 
 
 async function actionMint() {
+  if(!web3Util.web3) {
+    if(isMobileBrowser()) {
+      location.href = `https://metamask.app.link/dapp/${location.href.replace(/http:\/\/|https:\/\//, '')}`
+    } else {
+      location.href = `https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn`
+    }
+    return false
+  }
   const chainId = await window.ethereum.request({ method: 'eth_chainId' })
   console.error(chainId)
   if(chainId !== '0xaa36a7') {

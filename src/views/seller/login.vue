@@ -18,14 +18,24 @@
 </template>
 
 <script setup>
-import { ElMessage } from 'element-plus'
+import { isMobileBrowser } from "@/x/tools"
+// import { ElMessage } from 'element-plus'
 import { useStore } from "vuex"
 import web3Util from "@/x/utils/web3"
-import { useRouter } from "vue-router"
+import { useRouter, useRoute } from "vue-router"
 const store = useStore()
 const router = useRouter()
+const route = useRoute()
 let chainId = ''
 async function actionConnect(){
+  if(!web3Util.web3) {
+    if(isMobileBrowser()) {
+      location.href = `https://metamask.app.link/dapp/${location.href.replace(/http:\/\/|https:\/\//, '')}`
+    } else {
+      location.href = `https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn`
+    }
+    return false
+  }
   if(chainId !== '0xaa36a7') {
     try {
       await window.ethereum.request({
@@ -34,9 +44,6 @@ async function actionConnect(){
       })
     } catch (error) {
     }
-  }
-  if(!web3Util.web3) {
-    return ElMessage.error("Please connect Metamask first");
   }
   const web3 = web3Util.web3
   web3.eth.getAccounts().then(async (accounts) => { 
@@ -48,6 +55,9 @@ async function actionConnect(){
     const walletAddress = accounts[0]
     console.error(walletAddress)
     store.commit("setSellerToken", walletAddress)
+    if(route.query.backUrl) {
+      return location.replace(route.query.backUrl)
+    }
     router.push({ name: 'sellerCreate' })
   })
 }
