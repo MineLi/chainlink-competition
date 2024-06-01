@@ -3,6 +3,7 @@ const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  publicPath: '/whiskyrwa',
   chainWebpack: config =>{
     config.plugin('html').tap(args => {
       args[0].title = '';

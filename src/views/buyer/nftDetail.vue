@@ -8,8 +8,8 @@
         <p>{{ nftDetail.description }}</p>
         <el-button @click="actionMint" type="primary" class="!w-[160px] mt-[20px] bg-[#409eff]" v-if="!hasFinished">Buy</el-button>
         <template v-else>
-          <span class="text-[16px] mt-[20px] bg-[#409eff]">Transaction Tx: {{ txId }}</span>
-          <el-button @click="actionToDelivery" type="primary" class="!w-[160px] mt-[20px]">Finish</el-button>
+          <span class="text-[16px] mt-[20px]">Transaction Tx: {{ txId }}</span>
+          <el-button @click="actionToDelivery" type="primary" class="!w-[160px] mt-[20px] bg-[#409eff]">Finish</el-button>
         </template>
       </div>
     </div> 
