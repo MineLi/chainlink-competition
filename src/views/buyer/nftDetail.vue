@@ -9,7 +9,10 @@
         <el-button @click="actionMint" type="primary" class="!w-[160px] mt-[20px] bg-[#409eff]" v-if="!hasFinished">Buy</el-button>
         <template v-else>
           <span class="text-[16px] mt-[20px]">Transaction Tx: {{ txId }}</span>
-          <el-button @click="actionToDelivery" type="primary" class="!w-[160px] mt-[20px] bg-[#409eff]">Finish</el-button>
+          <div class="flex item-center justify-center">
+            <el-button @click="actionBackToList" type="default" class="!w-[160px] mt-[20px] bg-[#409eff]">Back</el-button>
+            <el-button @click="actionToDelivery" type="primary" class="!w-[160px] mt-[20px] bg-[#409eff]">Delivery</el-button>
+          </div>
         </template>
       </div>
     </div> 
@@ -101,6 +104,10 @@ async function actionMint() {
   } catch (error) {
     console.error(error)
   }
+}
+
+function actionBackToList() {
+  router.push({ name : 'buyerNftList' })
 }
 
 function actionToDelivery() {

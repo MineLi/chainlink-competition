@@ -2,7 +2,7 @@
 <div class="p-[20px]">
   <el-tabs v-model="activeName">
     <el-tab-pane label="MY NFT(未開瓶)" name="first">
-      <el-button @click="mintNewNft" type="primary" class="mb-[10px] bg-[#409eff]">Mint New</el-button>
+      <!-- <el-button @click="mintNewNft" type="primary" class="mb-[10px] bg-[#409eff]">Mint New</el-button> -->
       <div class="">
         <div class="bg-white rounded-xl pr-[10px] pb-[10px] flex flex-wrap gap-[20px] min-h-[400px]" v-loading="!mintedLoadingDone"> 
           <template v-if="mintedNftList.length">
@@ -51,11 +51,11 @@ const router = useRouter()
 const store = useStore()
 
 const activeName = ref("first")
-function mintNewNft() {
-  router.push({
-    name: 'buyerNftDetail'
-  })
-}
+// function mintNewNft() {
+//   router.push({
+//     name: 'buyerNftDetail'
+//   })
+// }
 
 onMounted(() => {
   getMintedNftList()

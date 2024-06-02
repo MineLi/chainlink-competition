@@ -5,7 +5,7 @@ import routes from "./routes"
 const defaultRoutes = [
   {
     path: '/',
-    redirect: '/buyer/nft/list'
+    redirect: '/buyer/dashboard'
   },
   {
     path: '/home',
@@ -14,6 +14,14 @@ const defaultRoutes = [
       title: "HOME"
     },
     component: () => import("@/views/home.vue")
+  },
+  {
+    path: '/buyer/dashboard',
+    name: 'buyerDashboard',
+    meta: {
+      title: "Dashboard"
+    },
+    component: () => import("@/views/buyer/dashboard.vue")
   },
   {
     path: '/buyer/nft/opened',
