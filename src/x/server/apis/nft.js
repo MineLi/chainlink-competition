@@ -9,5 +9,9 @@ class Home extends Base {
   createNftDetail(data) {
     return this.post(`/prod-api/nft/nftProduct`, data).then(this._handleResult)
   }
+
+  createCollection(data) {
+    return this.post(`/prod-api/nft/collection`, data).then(this._handleResult)
+  }
 }
 export default new Home();

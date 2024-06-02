@@ -9,13 +9,13 @@
               <el-input v-model="form.name" />
             </el-form-item>
             <el-form-item label="Description:">
-              <el-input v-model="form.desc" type="textarea" rows="8"/>
+              <el-input v-model="form.description" type="textarea" rows="8"/>
             </el-form-item>
             <el-form-item label="Base URL:">
               <el-input v-model="form.baseUrl"/>
             </el-form-item>
             <el-form-item label=" ">
-              <el-button class="bg-[#409eff]" @click="confirmUpload" type="primary">Confirm</el-button>
+              <el-button class="bg-[#409eff]" @click="confirmSave" type="primary">Confirm</el-button>
             </el-form-item>
           </div>
         </div>
@@ -26,15 +26,23 @@
 
 <script setup>
 import { reactive } from "vue";
+import apis from "@/x/server"
+import { ElMessage } from 'element-plus'
 
 const form = reactive({
   name: '',
-  desc: '',
+  description: '',
   baseUrl: ''
 })
 
-function confirmUpload() {
-  
+async function confirmSave() {
+  const { code } = await apis.nft.createCollection({
+    ...form,
+    contractId: '0x314e34EFfdA6999CF633c737daC961B0907061eF'
+  })
+  if(code === 200) {
+    ElMessage.success('Save Success!')
+  }
 }
 
 </script>
