@@ -33,6 +33,12 @@ module.exports = defineConfig({
         target : 'http://116.196.89.134:8080',
         changeOrigin : true
       },
+      "/nft-api": {
+        target: "http://94.190.229.193:3016",
+        pathRewrite: {
+          "^/nft-api": "",
+        },
+      }
     },
   }
 })
