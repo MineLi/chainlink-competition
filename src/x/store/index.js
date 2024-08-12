@@ -15,7 +15,13 @@ export default createStore({
       state.buyerToken = token;
     }
   },
-  getters: {},
-  actions: {},
+  getters: {
+    isLogin(state) { return !!state.buyerToken }
+  },
+  actions: {
+    logout({commit}) {
+      commit('setBuyerToken', '');
+    }
+  },
   modules: {}
 });

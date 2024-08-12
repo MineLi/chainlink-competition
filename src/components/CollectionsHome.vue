@@ -16,12 +16,12 @@
                 'background-image': `url(${item.featured_image}), url('@/assets/images/loading.gif')`,
                 'background-position': `center center`,
               }"
-              @click="toCollectionDetail(item)"
+              @click="toCollectionDetail"
             ></div>
             <div class="card-body p-4">
               <h5
                 class="card-title text-truncate mb-0"
-                @click="toCollectionDetail(item)"
+                @click="toCollectionDetail"
               >
                 {{ item.name }}
               </h5>
@@ -104,10 +104,9 @@ export default {
         this.total = data.count;
       }
     },
-    toCollectionDetail({ id }) {
+    toCollectionDetail() {
       this.$router.push({
-        name: "collectionsDetail",
-        query: { id },
+        name: "buyerNftDetail"
       });
     },
   },

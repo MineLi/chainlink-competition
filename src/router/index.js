@@ -24,6 +24,14 @@ const defaultRoutes = [
     component: () => import("@/views/buyer/dashboard.vue")
   },
   {
+    path: '/buyer/profile',
+    name: 'buyerProfile',
+    meta: {
+      title: "Profile"
+    },
+    component: () => import("@/views/buyer/profile.vue")
+  },
+  {
     path: '/buyer/nft/opened',
     name: 'buyerNftOpened',
     meta: {

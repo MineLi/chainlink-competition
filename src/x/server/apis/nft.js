@@ -54,12 +54,12 @@ class Home extends Base {
   }
 
   queryNftBillList(params) {
-    return this.get("/nft/bill-list/", {params});
+    return this.get("/nft-api/nft/bill-list/", {params});
   }
   
-  // queryNftDetail(params) {
-  //   return this.get(`/nft/nft-list/${params.id}/detail/`);
-  // }
+  queryNftDetails(params) {
+    return this.get(`/nft-api/nft/nft-list/${params.id}/detail/`);
+  }
 
   buyNftByPaypal(params) {
     return this.post("/nft-api/nft/buy-nft-by-paypal/", params);
@@ -155,7 +155,7 @@ class Home extends Base {
   }
 
   queryNftHistoryList(params) {
-    return this.get("/nft-api/nft/nft-history-list/", {params});
+    return this.get("/nft-api/nft/nft-history-list/", {params}).then(this._handleResult);
   }
 
   // collections
@@ -197,7 +197,7 @@ class Home extends Base {
   }
 
   queryListing(params) {
-    return this.get(`/nft-api/nft/listing-list/`, {params});
+    return this.get(`/nft-api/nft/listing-list/`, {params}).then(this._handleResult);
   }
 
   sendEmail(params) {
@@ -237,7 +237,7 @@ class Home extends Base {
   }
 
   queryActivityFilterList(params) {
-    return this.get("/nft-api/nft/activity-filter-list/", {params});
+    return this.get("/nft-api/nft/activity-filter-list/", {params}).then(this._handleResult);
   }
 
   queryHoldList(params) {

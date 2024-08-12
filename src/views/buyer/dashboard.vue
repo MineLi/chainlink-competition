@@ -2,7 +2,7 @@
   <div class="page-wrap">
     <!-- header  -->
     <header class="header-section has-header-main bg-gradient">
-      <!-- <HeaderSection></HeaderSection> -->
+      <HeaderSection></HeaderSection>
       <Hero></Hero>
     </header>
     <!-- collection-section  -->
@@ -74,15 +74,18 @@
 <script>
 // Import component data. You can change the data in the store to reflect in all component
 import SectionData from "@/libs/store.js";
+import HeaderSection from "@/components/HeaderSection.vue";
 import SectionHeading from '@/components/SectionHeading.vue';
 import CollectionsHome from "@/components/CollectionsHome.vue";
 // import ButtonLink from "@/components/ButtonLink.vue"
 import BlogSectionSlider from "@/components/BlogSectionSlider.vue"
 import Hero from "@/components/Hero.vue";
+import("@/libs/js/scripts");
 
 export default {
   name: "Home-v3",
   components: {
+    HeaderSection,
     SectionHeading,
     CollectionsHome,
     // ButtonLink,
@@ -93,8 +96,8 @@ export default {
     return {
       SectionData,
       collection_home: {
-        title: "Trending Collection",
-        content: "The Most update collection from our artists",
+        title: "SALE NFTS",
+        content: "nfts for sale",
         btnText: "View all collection",
         btnLink: "",
       },
@@ -110,6 +113,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page-wrap {
+
+}
 @media (min-width: 768px) {
   .section-space-t,
   .section-space {

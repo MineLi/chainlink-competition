@@ -3018,27 +3018,27 @@ let SectionData = {
     {
       id: 1,
       title: "Profile",
-      path: "profile",
+      path: "/buyer/profile",
       icon: "ni-user",
     },
-    {
-      id: 2,
-      title: "Dashboard",
-      path: "offers",
-      icon: "ni-dashboard",
-    },
-    {
-      id: 3,
-      title: "Account Settings",
-      path: "account",
-      icon: "ni-setting",
-    },
-    {
-      id: 4,
-      title: "Help center",
-      path: "contact",
-      icon: "ni-question-alt",
-    },
+    // {
+    //   id: 2,
+    //   title: "Dashboard",
+    //   path: "offers",
+    //   icon: "ni-dashboard",
+    // },
+    // {
+    //   id: 3,
+    //   title: "Account Settings",
+    //   path: "account",
+    //   icon: "ni-setting",
+    // },
+    // {
+    //   id: 4,
+    //   title: "Help center",
+    //   path: "contact",
+    //   icon: "ni-question-alt",
+    // },
   ],
   // offer sidebar data
   offerSidebarData: {

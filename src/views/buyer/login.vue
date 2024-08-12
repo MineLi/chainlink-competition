@@ -8,7 +8,7 @@
               class="login-type-item active"
             >Metamask Login</div>
           </div>
-          <div class="w-[100px] m-auto mt-[40px] cursor-pointer" @click="metaMaskLogin">
+          <div class="w-[100px] mx-auto !mt-[40px] cursor-pointer" @click="metaMaskLogin">
             <img src="@/assets/images/login/metamask.png" alt="">
           </div>
         </div>

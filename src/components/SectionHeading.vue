@@ -1,5 +1,5 @@
 <template>
-  <div class="section-head text-center">
+  <div class="section-head !pb-[10px] text-center">
     <div class="header-shape"></div>
     <div class="section-header style-4">
       <h3 :class="isMargin" v-html="text"></h3>

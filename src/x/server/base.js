@@ -19,6 +19,9 @@ class Base {
     const defaults = this._defaultParams()
     this._http.interceptors.request.use(
       (request) => {
+        Object.assign(request.headers, {
+          Authorization: `Token ae662e29e709ac58d5fa91b802c690b336ece77b`
+        })
         if (request.method === 'get') {
           request.params = {
             ...defaults,
