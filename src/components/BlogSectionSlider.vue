@@ -79,10 +79,10 @@
 import SectionData from "@/libs/store.js";
 
 // core version + navigation, pagination modules:
-import SwiperCore, { Pagination } from "swiper";
+// import SwiperCore from "swiper";
 
 // configure Swiper to use modules
-SwiperCore.use([Pagination]);
+// SwiperCore.use([Pagination]);
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";

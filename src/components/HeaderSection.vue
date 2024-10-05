@@ -1,29 +1,98 @@
 <template>
   <div class="is-sticky bg-white">
-    <div class="container flex items-center">
+    <div class="container flex items-center ">
       <router-link to="/" class="logo-link">
         <img class="logo-dark logo-img" :src="require('@/assets/images/whisky/logo-black.png')" alt="logo" />
       </router-link>
-      <div class="header-wrap ml-auto">
+      <div class="nav-height ml-auto">
+        <div class="inner">
+          <ul
+            data-breakpoint="1025"
+            class="flex gap-4 lg-screen"
+          >
+            <li class="link menu-timeline">
+              <a class="ajax-link v-router" :class="{ active: menuIsActive === 'home' }" href="/">
+                <div class="before-span"><span data-hover="Home">Home</span></div>
+              </a>
+            </li>
+            <li class="link menu-timeline">
+              <a
+                class="ajax-link v-router"
+                :class="{ active: menuIsActive === 'contact' }"
+                href="/contact"
+              >
+                <div class="before-span"><span data-hover="Contact">Contact</span></div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="header-wrap ml-[20px]">
         <Avatar class=""/>
       </div>
     </div>
   </div>
 </template>
-<script>
+<script setup>
+import { computed, onMounted } from "vue";
 import Avatar from "./Avatar.vue";
-
-export default {
-  components: {
-    Avatar,
-  },
-  name: "HeaderSection",
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
-    },
-  },
-};
+import store from "@/x/store"
+const isLogin = computed(() => store.getters.isLogin)
+onMounted(() => {
+  /*  =======================================================
+    Sticky navbar on scroll down
+  ========================================================== */
+  const _navbar_fixed = 'has-fixed';
+  function stickyMenu(selector) {
+    let elem = document.querySelectorAll(selector);
+    if(elem.length > 0){
+      elem.forEach(item => {
+        let _item_offset = item.offsetTop;
+        window.addEventListener("scroll", function () {
+          if(window.scrollY > _item_offset){
+            item.classList.add(_navbar_fixed);
+          }else{
+            item.classList.remove(_navbar_fixed);
+          }
+        });
+      });
+    }
+  }
+  stickyMenu('.is-sticky');
+})
+// export default {
+//   components: {
+//     Avatar,
+//   },
+//   name: "HeaderSection",
+//   computed: {
+//     isLogin() {
+//       return this.$store.getters.isLogin;
+//     },
+//   },
+//   mounted() {
+//     /*  =======================================================
+//       Sticky navbar on scroll down
+//     ========================================================== */
+//     const _navbar_fixed = 'has-fixed';
+//     function stickyMenu(selector) {
+//       let elem = document.querySelectorAll(selector);
+//       if(elem.length > 0){
+//         elem.forEach(item => {
+//           let _item_offset = item.offsetTop;
+//           window.addEventListener("scroll", function () {
+//             if(window.scrollY > _item_offset){
+//               item.classList.add(_navbar_fixed);
+//             }else{
+//               item.classList.remove(_navbar_fixed);
+//             }
+//           });
+//         });
+//       }
+//     }
+//     stickyMenu('.is-sticky');
+//   }
+// };
 </script>
 <style scoped lang="scss">
 .test-msg {
