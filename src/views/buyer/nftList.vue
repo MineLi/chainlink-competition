@@ -68,7 +68,7 @@ const mintedLoadingDone = ref(false)
 async function getMintedNftList() {
   const { ownedNfts } = await apis.alchemy.queryOwnerNftList({
     owner: store.state.buyerToken,
-    'contractAddresses[]': '0x314e34EFfdA6999CF633c737daC961B0907061eF',
+    'contractAddresses[]': '0xfa97BE41cbE51ED93C59D2E239bBB9Fbe41d6Df7',
     withMetadata: 'true',
     pageSize: '100'
   })

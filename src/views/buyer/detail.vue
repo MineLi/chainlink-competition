@@ -103,7 +103,7 @@ const nftName = ref("")
 async function getNFTMetadata() {
   const metadata = await apis.alchemy.getNFTMetadata({
     tokenId: route.query.tokenId,
-    contractAddress: '0x314e34EFfdA6999CF633c737daC961B0907061eF',
+    contractAddress: '0xfa97BE41cbE51ED93C59D2E239bBB9Fbe41d6Df7',
     refreshCache: 'false'
   })
   nftImage.value = metadata.raw.metadata.image

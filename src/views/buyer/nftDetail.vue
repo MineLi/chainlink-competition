@@ -18,7 +18,7 @@ import { ElMessage } from "element-plus";
 import { Headset, Sort } from "@element-plus/icons-vue";
 import { returnBottleStatusStr } from "@/x/utils/whisky";
 import { BOTTLE_WITHDRAW } from "@/enum/bottle";
-
+import store from "@/x/store"
 const route = useRoute();
 // const router = useRouter();
 
@@ -35,11 +35,11 @@ const isHKDPrice = ref(true);
 // 商品信息
 let productDetail = ref({});
 
-const nftDetail = ref({
-  description: "Experience the mystical charm of our Drunken Ghosts, where each sip is a step into a fantastical world.",
-  image: "https://nftstorage.link/ipfs/bafybeih2yys2zr7gpipkqnzvbwlufjr6pbdju4lkgpj67e367fgilyk5ou",
-  name: "OffChainDrunkenAccess"
-})
+// const nftDetail = ref({
+//   description: "Experience the mystical charm of our Drunken Ghosts, where each sip is a step into a fantastical world.",
+//   image: "https://nftstorage.link/ipfs/bafybeih2yys2zr7gpipkqnzvbwlufjr6pbdju4lkgpj67e367fgilyk5ou",
+//   name: "OffChainDrunkenAccess"
+// })
 // 酒瓶状态
 let bottleStatus = ref("");
 // 汇率信息
@@ -74,7 +74,7 @@ const currentUserVoteCount = ref(0);
 const serverTime = ref('')
 
 // 当前登录
-const currentUser = computed(() => getCurrentInstance().appContext.config.globalProperties.$store.getters.userInfo);
+const currentUser = computed(() => store.getters.userInfo);
 // 用户信息
 // const user = computed(() => productDetail.value["user"] ?? {});
 // 港币价值
@@ -153,11 +153,13 @@ const initCharts = (data) => {
 // 获取商品详情
 const getDetailData = async () => {
   const res = await apis.nft.queryNftDetails({
-    id: 588
+    id: route.query.id
   });
+  console.error(res.data)
   if (res && +res.code === 0) {
     const {data = {}} = res;
     productDetail.value = data;
+    console.error(productDetail.value)
     productDetail.value.bottleStatusStr = returnBottleStatusStr(
       productDetail.value["bottle_status"],
       route.query.type,
@@ -217,7 +219,7 @@ const queryActivityList = (index) => {
 
   apis.nft
     .queryActivityFilterList({
-      nft: 588,
+      nft: route.query.id,
       offset: activityPageIndex.value - 1,
       limit: activityPageSize,
     })
@@ -245,7 +247,7 @@ const getPageData = () => {
     apis.public.queryETHPrice(),
     // 获取Listing History
     apis.nft.queryListing({
-      nft: 588,
+      nft: route.query.id,
       offset: 0,
       limit: 5,
     }),
@@ -256,13 +258,13 @@ const getPageData = () => {
     //   nft: 588,
     // }),
     // 获取Trading History
-    apis.nft.queryNftHistoryList({
-      nft: 588,
-      offset: 0,
-      limit: 5,
-    }),
+    // apis.nft.queryNftHistoryList({
+    //   nft: route.query.id,
+    //   offset: 0,
+    //   limit: 5,
+    // }),
     apis.nft.queryActivityFilterList({
-      nft: 588,
+      nft: route.query.id,
       offset: activityPageIndex.value - 1,
       limit: activityPageSize,
     }),
@@ -468,18 +470,18 @@ const description = `<div class="row">
       <!--Product Info-->
       <div class="product">
         <el-card class="info">
-          <!--          <div class="avatar">-->
-          <!--            &lt;!&ndash;            <img :src="user.avatar" alt="" />&ndash;&gt;-->
-          <!--            <img :src="user['avatar']" alt="" />-->
-          <!--          </div>-->
-          <div class="collection-name">
-            {{ nftDetail.description }}
-          </div>
+          <!-- <div class="avatar">
+            &lt;!&ndash; <img :src="user.avatar" alt="" />&ndash;&gt;
+            <img :src="user['avatar']" alt="" />
+          </div> -->
+          <!-- <div class="collection-name">
+            {{ productDetail.description }}
+          </div> -->
           <div class="name">
             <!--            <el-tooltip :content="productDetail.title" effect="dark" placement="top-start">-->
             <!--              {{ productDetail.title }}-->
             <!--            </el-tooltip>-->
-            {{ nftDetail.name }}
+            {{ productDetail.title }}
           </div>
           <div class="bottle-info mt-[40px]">
             <div class="bottle-info-name">bottle status</div>
@@ -503,9 +505,10 @@ const description = `<div class="row">
             </div>
           </template>
         </el-card>
+        <!-- preview_url -->
         <div ref="imgRef" class="image">
-          <template v-if="nftDetail.image">
-            <img alt="image" :src="nftDetail.image"/>
+          <template v-if="productDetail.preview_url">
+            <img alt="image" :src="productDetail.preview_url"/>
           </template>
           <template v-else-if="(!productDetail['sale_count'] && !productDetail['is_piece'])
                            || (productDetail['is_piece'] && !productDetail['vote_withdraw']) ">

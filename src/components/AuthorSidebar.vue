@@ -235,7 +235,7 @@
 <script>
 // Import component data. You can change the data in the store to reflect in all component
 import SectionData from "@/libs/store.js";
-
+import ModalSection from "@/components/ModalSection.vue";
 export default {
   name: "AuthorSidebar",
   props: [
@@ -249,6 +249,9 @@ export default {
     "avatars",
     "links",
   ],
+  components: {
+    ModalSection
+  },
   data() {
     return {
       SectionData,

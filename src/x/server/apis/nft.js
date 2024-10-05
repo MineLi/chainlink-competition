@@ -58,7 +58,7 @@ class Home extends Base {
   }
   
   queryNftDetails(params) {
-    return this.get(`/nft-api/nft/nft-list/${params.id}/detail/`);
+    return this.get(`/nft-api/nft/nft-list/${params.id}/detail/`).then(res => res.data);
   }
 
   buyNftByPaypal(params) {

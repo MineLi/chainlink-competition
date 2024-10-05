@@ -38,7 +38,7 @@ const form = reactive({
 async function confirmSave() {
   const { code } = await apis.nft.createCollection({
     ...form,
-    contractId: '0x314e34EFfdA6999CF633c737daC961B0907061eF'
+    contractId: '0xfa97BE41cbE51ED93C59D2E239bBB9Fbe41d6Df7'
   })
   if(code === 200) {
     ElMessage.success('Save Success!')

@@ -12,7 +12,7 @@
             <div class="gap-2x"></div>
             <!-- end gap -->
             <div class="row g-gs">
-              <div v-for="item in openedNftList" :key="item.id" class="col-md-4">
+              <!-- <div v-for="item in openedNftList" :key="item.id" class="col-md-4">
                 <div class="card card-full">
                   <div
                     :style="{
@@ -30,10 +30,8 @@
                         :withdraw-item="item" @query-user-items="queryUserItems"/>
                     </ul>
                   </div>
-                  <!-- end card-body -->
                 </div>
-                <!-- end card -->
-              </div>
+              </div> -->
               <div v-for="item in mintedNftList" :key="item.id" class="col-md-4">
                 <div class="card card-full">
                   <div
@@ -48,7 +46,7 @@
                       {{ item.raw.metadata.name }}
                     </h5>
                     <ul class="btns-group pt-[10px]">
-                      <BottleWithdraw :hasWithdrawedIds='hasWithdrawedIds' :opened='false'
+                      <BottleWithdraw :hasWithdrawedIds='hasWithdrawedIds' :opened='item.openStatus'
                         :withdraw-item="item" @query-user-items="queryUserItems"/>
                     </ul>
                   </div>
@@ -58,7 +56,7 @@
               </div>
             </div>
             <div class="text-center mt-4 mt-md-5">
-              <Pagination v-model="pageOpts.offset" :per-page="pageOpts.limit" :records="total"></Pagination>
+              <!-- <Pagination v-model="pageOpts.offset" :per-page="pageOpts.limit" :records="total"></Pagination> -->
             </div>
           </div>
           <!-- end author-items-wrap -->
@@ -138,6 +136,7 @@ import BottleWithdraw from "@/components/BottleWithdraw.vue";
 import blindImg from '@/assets/images/whisky/blind.png';
 import apis from '@/x/server';
 import ModalSection from "@/components/ModalSection"
+import MintCls from "@/x/utils/mint"
 
 export default {
   name: "ProfileSection",
@@ -269,32 +268,40 @@ export default {
       //   this.userNftItems = data.results;
       // }
       this.getMintedNftList()
-      this.getOpenedNftList()
+      // this.getOpenedNftList()
       this.getWithdrawList()
     },
     // const mintedNftList = ref([])
     async getMintedNftList() {
+  // import BigNumberjs from "bignumber.js";
+      const MintClsInstance = MintCls.instance
       const { ownedNfts } = await apis.alchemy.queryOwnerNftList({
         owner: this.$store.state.buyerToken,
-        'contractAddresses[]': '0x314e34EFfdA6999CF633c737daC961B0907061eF',
+        'contractAddresses[]': '0xfa97BE41cbE51ED93C59D2E239bBB9Fbe41d6Df7',
         withMetadata: 'true',
         pageSize: '100'
       })
+      for (let i = 0; i < ownedNfts.length; i++) {
+        const nft = ownedNfts[i]
+        const openStatus = await MintClsInstance.methods.openStatus(nft.tokenId).call()
+        nft.openStatus = openStatus
+      }
       this.mintedNftList = ownedNfts
     },
-    async getOpenedNftList() {
-      const { ownedNfts } = await apis.alchemy.queryOwnerNftList({
-        owner: this.$store.state.buyerToken,
-        'contractAddresses[]': '0x589469Ac6bA85c441c91DcA4A4A1a88BAe556aBE',
-        withMetadata: 'true',
-        pageSize: '100'
-      })
-      this.openedNftList = ownedNfts
-    },
+    // async getOpenedNftList() {
+    //   const { ownedNfts } = await apis.alchemy.queryOwnerNftList({
+    //     owner: this.$store.state.buyerToken,
+    //     'contractAddresses[]': '0x589469Ac6bA85c441c91DcA4A4A1a88BAe556aBE',
+    //     withMetadata: 'true',
+    //     pageSize: '100'
+    //   })
+    //   this.openedNftList = ownedNfts
+    // },
     async getWithdrawList() {
       const { code, rows } = await apis.nft.queryNftList()
       if(code === 200) {
         this.hasWithdrawedIds = rows.map((row) => row.tokenid)
+        console.error(this.hasWithdrawedIds)
       }
     },
     confirmUpdate() {
