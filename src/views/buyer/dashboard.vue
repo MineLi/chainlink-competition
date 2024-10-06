@@ -1,8 +1,8 @@
 <template>
   <div class="page-wrap">
+    <HeaderSection></HeaderSection>
     <!-- header  -->
     <header class="header-section has-header-main bg-gradient">
-      <HeaderSection></HeaderSection>
       <Hero></Hero>
     </header>
     <!-- collection-section  -->

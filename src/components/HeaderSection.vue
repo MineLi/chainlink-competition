@@ -1,5 +1,6 @@
 <template>
-  <div class="is-sticky bg-white">
+  <!-- is-sticky -->
+  <div class="sticky top-0 bg-white z-[1001]">
     <div class="container flex items-center ">
       <router-link to="/" class="logo-link">
         <img class="logo-dark logo-img" :src="require('@/assets/images/whisky/logo-black.png')" alt="logo" />
@@ -11,19 +12,19 @@
             class="flex gap-4 lg-screen"
           >
             <li class="link menu-timeline">
-              <a class="ajax-link v-router" :class="{ active: menuIsActive === 'home' }" href="/">
+              <a class="ajax-link v-router" :class="{ active: menuIsActive === 'buyerDashboard' }" href="/">
                 <div class="before-span"><span data-hover="Home">Home</span></div>
               </a>
             </li>
-            <li class="link menu-timeline">
+            <!-- <li class="link menu-timeline">
               <a
                 class="ajax-link v-router"
                 :class="{ active: menuIsActive === 'contact' }"
                 href="/contact"
               >
-                <div class="before-span"><span data-hover="Contact">Contact</span></div>
+                <div class="before-span"><span data-hover="Contact">Contact Us</span></div>
               </a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -38,6 +39,10 @@ import { computed, onMounted } from "vue";
 import Avatar from "./Avatar.vue";
 import store from "@/x/store"
 const isLogin = computed(() => store.getters.isLogin)
+import { useRoute } from "vue-router";
+const route = useRoute();
+// 菜单是否激活
+const menuIsActive = route.name;
 onMounted(() => {
   /*  =======================================================
     Sticky navbar on scroll down
@@ -95,6 +100,11 @@ onMounted(() => {
 // };
 </script>
 <style scoped lang="scss">
+.ajax-link {
+  &.active{
+    @apply underline underline-offset-4 text-[#333];
+  }
+}
 .test-msg {
   width: 100%;
   // height:30px;

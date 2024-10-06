@@ -5,7 +5,7 @@ import {Line} from "@antv/g2plot";
 import apis from "@/x/server";
 import { getTimeGap, parseLeftTime } from "@/x/utils";
 import HeaderSection from "@/components/HeaderSection.vue";
-
+import MintCls from "@/x/utils/mint"
 import ItemDetailBuyButton from "@/components/ItemDetailBuyButton.vue";
 // import ItemDetailBidButton from "@/components/common/ItemDetailBidButton.vue";
 // import ItemDetailCreator from "@/components/common/ItemDetailCreator.vue";
@@ -152,20 +152,28 @@ const initCharts = (data) => {
 
 // 获取商品详情
 const getDetailData = async () => {
+  
   const res = await apis.nft.queryNftDetails({
-    id: route.query.id
+    id: '588'
   });
   console.error(res.data)
   if (res && +res.code === 0) {
     const {data = {}} = res;
     productDetail.value = data;
     console.error(productDetail.value)
-    productDetail.value.bottleStatusStr = returnBottleStatusStr(
-      productDetail.value["bottle_status"],
-      route.query.type,
-      route.query.data
-    );
-    bottleStatus.value = data.status;
+    // productDetail.value.bottleStatusStr = returnBottleStatusStr(
+    //   productDetail.value["bottle_status"],
+    //   route.query.type,
+    //   route.query.data
+    // );
+    const MintClsInstance = MintCls.instance
+    const openStatus = await MintClsInstance.methods.openStatus(route.query.id).call()
+    productDetail.value.bottleStatusStr = openStatus ? "Opened" : "Sealed";
+    console.error(openStatus)
+    productDetail.value.title = `OffChainDrunkenAccess #${route.query.id}`
+    productDetail.value.preview_url = 'https://lemon-nft-image.oss-cn-hongkong.aliyuncs.com/barrel.jpg'
+
+    // bottleStatus.value = data.status;
     isHKDPrice.value = data.payment_method === 1;
     if (data.auction && data.auction.id) {
       queryBiddingHistory(data.auction.id);
@@ -178,16 +186,16 @@ const getDetailData = async () => {
     }
 
     // 如果有collection信息，则获取Vote信息
-    if (productDetail.value["collection"]?.id) {
-      voteList.value = []
+    // if (productDetail.value["collection"]?.id) {
+    //   voteList.value = []
 
-      if (currentUser.value && currentUser.value.id) {
-        queryCurrentUserVoteCount(productDetail.value["collection"]?.id)
-      } else {
-        queryVoteInfo(productDetail.value["collection"]?.id);
-        queryVoteHistory(productDetail.value["collection"]?.id);
-      }
-    }
+    //   if (currentUser.value && currentUser.value.id) {
+    //     queryCurrentUserVoteCount(productDetail.value["collection"]?.id)
+    //   } else {
+    //     queryVoteInfo(productDetail.value["collection"]?.id);
+    //     queryVoteHistory(productDetail.value["collection"]?.id);
+    //   }
+    // }
   }
 };
 
@@ -463,8 +471,8 @@ const description = `<div class="row">
 <template>
   <div v-loading.fullscreen.lock="isLoading" class="page-wrap" element-loading-text="R I Collection">
     <!-- header  -->
+    <HeaderSection></HeaderSection>
     <header class="header-section has-header-main bg-gradient">
-      <HeaderSection></HeaderSection>
     </header>
     <div class="whisky-container">
       <!--Product Info-->
@@ -486,6 +494,7 @@ const description = `<div class="row">
           <div class="bottle-info mt-[40px]">
             <div class="bottle-info-name">bottle status</div>
             <div class="bottle-info-value">Sealed</div>
+            <!-- <div class="bottle-info-value">{{ productDetail.bottleStatusStr }}</div> -->
           </div>
           <div class="bottle-info">
             <div class="bottle-info-name">location</div>
@@ -495,7 +504,7 @@ const description = `<div class="row">
           <div class="mt-[100px]">
             <item-detail-buy-button :itemDetailData="productDetail"></item-detail-buy-button>
           </div>
-          <template v-if="productDetail.method !== 2 && productDetail['is_publish']">
+          <!-- <template v-if="productDetail.method !== 2 && productDetail['is_publish']">
             <div class="price">
               <div class="number">
                 <el-tooltip :content="isHKDPrice ? hkdPrice : ethPrice" effect="dark" placement="top-start">
@@ -503,7 +512,7 @@ const description = `<div class="row">
                 </el-tooltip>
               </div>
             </div>
-          </template>
+          </template> -->
         </el-card>
         <!-- preview_url -->
         <div ref="imgRef" class="image">

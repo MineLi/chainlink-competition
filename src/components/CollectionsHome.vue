@@ -9,7 +9,7 @@
           v-for="item in userCollectionsItems"
           :key="item.id"
         >
-          <div class="card card-full" style="height: 345px;">
+          <div class="card card-full" style="height: 320px;">
             <div
               class="card-image card-image-bg"
               :style="{
@@ -25,18 +25,17 @@
               >
                 {{ item.name }}
               </h5>
-              <div class="card-author mb-1 d-flex align-items-center" v-if="item.user.id">
+              <!-- <div class="card-author mb-1 d-flex align-items-center" v-if="item.user.id">
                 <span class="me-1 card-author-by">Created By</span>
                 <div class="custom-tooltip-wrap">
-                  <!-- <router-link
+                  <router-link
                     :to="{ name: 'author', query: { id: item.user.id } }"
                     class="custom-tooltip author-link"
                     style="color: #c1c1c1;"
                     >@{{ item.user.username }}
-                  </router-link> -->
+                  </router-link>
                 </div>
-                <!-- end custom-tooltip-wrap -->
-              </div>
+              </div> -->
             </div>
             <!-- end card-body -->
           </div>
@@ -55,42 +54,50 @@ export default {
     return {
       userCollectionsItems: [
         {
-          id:1,
-          user:{}
+          id: 8,
+          name: 'OffChainDrunkenAccess #8',
+          featured_image: 'https://lemon-nft-image.oss-cn-hongkong.aliyuncs.com/barrel.jpg'
         },
         {
-          id:2,
-          user:{}
+          id: 9,
+          name: 'OffChainDrunkenAccess #9',
+          featured_image: 'https://lemon-nft-image.oss-cn-hongkong.aliyuncs.com/barrel.jpg'
         },
         {
-          id:3,
-          user:{}
+          id: 10,
+          name: 'OffChainDrunkenAccess #10',
+          featured_image: 'https://lemon-nft-image.oss-cn-hongkong.aliyuncs.com/barrel.jpg'
         },
         {
-          id:4,
-          user:{}
+          id: 11,
+          name: 'OffChainDrunkenAccess #11',
+          featured_image: 'https://lemon-nft-image.oss-cn-hongkong.aliyuncs.com/barrel.jpg'
         },
         {
-          id:5,
-          user:{}
+          id: 12,
+          name: 'OffChainDrunkenAccess #12',
+          featured_image: 'https://lemon-nft-image.oss-cn-hongkong.aliyuncs.com/barrel.jpg'
         },
         {
-          id:6,
-          user:{}
+          id: 13,
+          name: 'OffChainDrunkenAccess #13',
+          featured_image: 'https://lemon-nft-image.oss-cn-hongkong.aliyuncs.com/barrel.jpg'
         },
         {
-          id:7,
-          user:{}
+          id: 14,
+          name: 'OffChainDrunkenAccess #14',
+          featured_image: 'https://lemon-nft-image.oss-cn-hongkong.aliyuncs.com/barrel.jpg'
         },
         {
-          id:8,
-          user:{}
-        }
+          id: 15,
+          name: 'OffChainDrunkenAccess #15',
+          featured_image: 'https://lemon-nft-image.oss-cn-hongkong.aliyuncs.com/barrel.jpg'
+        },
       ],
     };
   },
   created() {
-    this.queryCollectionList();
+    // this.queryCollectionList();
   },
   methods: {
     async queryCollectionList() {

@@ -22,6 +22,7 @@ const MintClsInstance = MintCls.instance
 import { ElLoading } from 'element-plus'
 import { useRouter } from "vue-router"
 const router = useRouter()
+import store from "@/x/store"
 
 // const hasFinished = ref(false);
 const txId = ref("")
@@ -52,6 +53,7 @@ async function actionMint() {
     const accounts = await web3Util.web3.eth.getAccounts();
     const account = accounts[0];
     console.error("mint account", account)
+    store.commit("setBuyerToken", account)
     const mintCost = await MintClsInstance.methods.cost().call()
     MintClsInstance.methods.mint(1).send({
       from: account,

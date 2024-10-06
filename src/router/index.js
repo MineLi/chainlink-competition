@@ -88,6 +88,14 @@ const defaultRoutes = [
     component: () => import("@/views/seller/login.vue")
   },
   {
+    path: '/buyer/contact',
+    name: 'buyerContact',
+    meta: {
+      title: "buyerContact"
+    },
+    component: () => import("@/views/buyer/contact.vue")
+  },
+  {
     path: '/buyer/login',
     name: 'buyerLogin',
     meta: {
