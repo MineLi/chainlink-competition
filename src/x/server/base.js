@@ -14,7 +14,7 @@ class Base {
     this._http = axios.create(Object.assign({
       baseURL: this._getBaseURL(),
       timeout,
-      withCredentials: false
+      withCredentials: true
     }, config))
     const defaults = this._defaultParams()
     this._http.interceptors.request.use(

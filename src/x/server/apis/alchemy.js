@@ -9,6 +9,10 @@ class Home extends Base {
     return this.get(`https://eth-sepolia.g.alchemy.com/nft/v3/QuTQZh_QuF5O2-rKyxPhsh6gKP1tbIS3/getNFTMetadata`, params, { headers: {accept: 'application/json'} })
       .then(this._handleResult)
   }
+
+  getTokenUri(url) {
+    return this.get(url).then(this._handleResult)
+  }
 }
 export default new Home();
 

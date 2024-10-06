@@ -36,7 +36,7 @@
                 <div class="card card-full">
                   <div
                     :style="{
-                      'background-image': `url(${item.raw.metadata.image})`,
+                      'background-image': `url(${item.image})`,
                     }"
                     class="card-image card-image-bg"
                   >
@@ -284,7 +284,11 @@ export default {
       for (let i = 0; i < ownedNfts.length; i++) {
         const nft = ownedNfts[i]
         const openStatus = await MintClsInstance.methods.openStatus(nft.tokenId).call()
+        const tokenURI = await MintClsInstance.methods.tokenURI(nft.tokenId).call()
+        console.error(tokenURI)
+        const { image } = await fetch(tokenURI).then(response => response.json())
         nft.openStatus = openStatus
+        nft.image = image
       }
       this.mintedNftList = ownedNfts
     },
